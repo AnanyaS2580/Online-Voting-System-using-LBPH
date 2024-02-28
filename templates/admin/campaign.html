@@ -1,0 +1,142 @@
+{% include "admin/header.html" %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Create Campaign</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
+          <li class="breadcrumb-item active">Create Campaign</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+  
+
+
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Create Campaign Form</h5>
+
+        <!-- Floating Labels Form -->
+        <form class="row g-3" action ="/campaction" method ="post">
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" name="name"  class="form-control" id="floatingName" placeholder="Campaign Name" required>
+                <label for="floatingName">Camapign Name</label>
+            </div>
+            </div>
+            
+            <div class="col-md-4">
+            <div class="form-floating">
+                <input type="date" name="date" min="{{ dat }}" class="form-control" id="floatingEmail" placeholder="Date" required>
+                <label for="floatingEmail">Date</label>
+            </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-floating">
+                    <select name="starttime"  class="form-select" id="starttime" placeholder="endtime" required onchange="setendtime(this.value)">
+                        <option selected disabled>Select Staring time</option>
+                        {% for row in time[:-1]: %}
+                        <option value=" {{ row[0] }}"> {{ row[1] }} </option>
+                        {% endfor %} 
+
+                    </select>
+                    <label for="floatingEmail">StartTime</label>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-floating">
+                    <select name="endtime"  class="form-select" id="endtime" placeholder="endtime" required>
+                        <option id="0" value="0" selected disabled>Select Ending time</option>
+                        {% for row in time: %}
+                        <option value="{{ row[0] }}" id="{{ row[0] }}"> {{ row[1] }} </option>
+                        {% endfor %} 
+
+                    </select>
+                 
+                  <label for="floatingEmail">EndTime</label>
+                </div>
+            </div>
+    
+            <!-- <div class="col-md-6">
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            </div>
+            <div class="col-12">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
+                <label for="floatingTextarea">Address</label>
+            </div>
+            </div> -->
+            <div class="col-md-10">
+            <div class="col-md-12">
+                <div class="form-floating">
+                <input type="text" name="designation" class="form-control" id="floatingCity" placeholder="Designation" required>
+                <label for="floatingCity">Designation</label>
+                </div>
+            </div>
+            </div>
+            <!-- <div class="col-md-4">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" aria-label="State">
+                <option selected>New York</option>
+                <option value="1">Oregon</option>
+                <option value="2">DC</option>
+                </select>
+                <label for="floatingSelect">State</label>
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingZip" placeholder="Zip">
+                <label for="floatingZip">Zip</label>
+            </div>
+            </div> -->
+            <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form><!-- End floating Labels Form -->
+
+        </div>
+    </div>
+</main>
+
+<script type="text/javascript">
+
+    
+
+
+    /////////////////function for time 
+  
+    function setendtime(stime) {
+       
+    var endtime=document.getElementById('endtime').value;
+      
+    stime=parseInt(stime);
+
+    var selectElement = document.getElementById("endtime");
+
+
+
+    if (stime>=endtime)
+        selectElement.options[stime+1].selected = true;
+
+    for(var i=stime;i<=24;i++)
+    document.getElementById(i).removeAttribute("disabled");
+
+
+    for(var i=1;i<=stime;i++)
+    document.getElementById(i).setAttribute("disabled",1);
+  
+  
+    }
+  
+ 
+  </script>
+
+
+{% include "admin/footer.html" %}
